@@ -3,6 +3,9 @@ import axios from 'axios'
 export const FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST = 'FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST'
 export const FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS = 'FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS'
 export const FETCHING_APP_STORE_TOP_FREE_APPS_FAILURE = 'FETCHING_APP_STORE_TOP_FREE_APPS_FAILURE'
+export const FETCHING_APP_STORE_TOP_GROSSING_APPS_REQUEST = 'FETCHING_APP_STORE_TOP_GROSSING_APPS_REQUEST'
+export const FETCHING_APP_STORE_TOP_GROSSING_APPS_SUCCESS = 'FETCHING_APP_STORE_TOP_GROSSING_APPS_SUCCESS'
+export const FETCHING_APP_STORE_TOP_GROSSING_APPS_FAILURE = 'FETCHING_APP_STORE_TOP_GROSSING_APPS_FAILURE'
 
 export const fetchingAppStoreTopFreeAppsRequest = () => ({
   type: FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST
@@ -26,6 +29,33 @@ export const fetchingAppStoreTopFreeApps = (limit) => {
       dispatch(fetchingAppStoreTopFreeAppsSuccess(response.data.feed.entry))
     } catch (error) {
       dispatch(fetchingAppStoreTopFreeAppsFailure(error))
+      throw error
+    }
+  }
+}
+
+export const fetchingAppStoreTopGrossingAppsRequest = () => ({
+  type: FETCHING_APP_STORE_TOP_GROSSING_APPS_REQUEST
+})
+
+export const fetchingAppStoreTopGrossingAppsSuccess = (topGrossingAppsEntries) => ({
+  type: FETCHING_APP_STORE_TOP_GROSSING_APPS_SUCCESS,
+  topGrossingAppsEntries
+})
+
+export const fetchingAppStoreTopGrossingAppsFailure = (error) => ({
+  type: FETCHING_APP_STORE_TOP_GROSSING_APPS_FAILURE,
+  error
+})
+
+export const fetchingAppStoreTopGrossingApps = (limit) => {
+  return async function (dispatch) {
+    dispatch(fetchingAppStoreTopGrossingAppsRequest())
+    try {
+      let response = await axios.get(`https://itunes.apple.com/hk/rss/topgrossingapplications/limit=${limit}/json`)
+      dispatch(fetchingAppStoreTopGrossingAppsSuccess(response.data.feed.entry))
+    } catch (error) {
+      dispatch(fetchingAppStoreTopGrossingAppsFailure(error))
       throw error
     }
   }

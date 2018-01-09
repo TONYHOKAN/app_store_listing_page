@@ -7,3 +7,13 @@ export const appStoreTopFreeAppsMock = {
     ]
   }
 }
+
+export const appStoreTopGrossingAppsMock = {
+  'feed': {
+    'entry': [
+      {
+        'grossing': 'grossingApps'
+      }
+    ]
+  }
+}
