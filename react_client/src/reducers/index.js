@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import users from './users'
+import appStore from './appStore'
 
 const rootReducer = combineReducers({
-  users: users
+  appStore: appStore
 })
 
 export default rootReducer

@@ -1,16 +1,16 @@
 import { connect } from 'react-redux'
-import { updateUserName } from '../actions/users'
+import { fetchingAppStoreTopApps } from '../actions/appStore'
 import App from '../components/App'
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    userName: state.users.userName
+    topFreeAppsEntries: state.appStore.topFreeAppsEntries
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
-    updateUserName
+    fetchingAppStoreTopApps
   }
 }
 
