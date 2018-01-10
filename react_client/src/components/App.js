@@ -6,6 +6,7 @@ import GrossingAppsListing from './GrossingAppsListing'
 import FreeAppsListing from './FreeAppsListing'
 import SearchBar from './SearchBar'
 import Loading from './Loading'
+import { isSearchKeyMatched } from '../utils/search'
 
 class App extends Component {
   constructor (props) {
@@ -45,8 +46,8 @@ class App extends Component {
 
   render () {
     const { topFreeAppsEntries, topGrossingAppsEntries, appDetail, isFetching } = this.props
-    const filteredTopFreeApps = topFreeAppsEntries
-    const filteredTopGrossingAppsEntries = topGrossingAppsEntries
+    const filteredTopFreeApps = topFreeAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
+    const filteredTopGrossingAppsEntries = topGrossingAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     return (
       <div className="App" style={{ 'paddingTop': '50px' }}>
         {isFetching && <Loading/>}
