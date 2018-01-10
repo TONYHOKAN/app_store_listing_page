@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './App.css'
+import GrossingAppsListing from './GrossingAppsListing'
 
 import SearchBar from './SearchBar'
 
@@ -8,7 +9,10 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.searchFilter = this.searchFilter.bind(this)
-    this.state = { page: 1 }
+    this.state = {
+      page: 1,
+      searchKey: ''
+    }
   }
 
   componentWillMount () {
@@ -34,17 +38,20 @@ class App extends Component {
   }
 
   searchFilter (value) {
-    // some stuff
+    this.setState({ searchKey: value })
   }
 
   render () {
+    const { topFreeAppsEntries, topGrossingAppsEntries } = this.props
+    const filteredTopFreeApps = topFreeAppsEntries
+    const filteredTopGrossingAppsEntries = topGrossingAppsEntries
     return (
       <div className="App">
         <section className="search-bar-section">
           <SearchBar searchAction={this.searchFilter}/>
         </section>
         <section className="app-listing-section">
-
+          <GrossingAppsListing grossingApps={filteredTopFreeApps}/>
         </section>
       </div>
     )
