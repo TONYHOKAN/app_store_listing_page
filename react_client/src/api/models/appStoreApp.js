@@ -1,4 +1,4 @@
-export default class AppStoreApps {
+export default class AppStoreApp {
   constructor (json = {}) {
     this.id = json['id'].attributes['im:id']
     this.name = json['im:name'].label
