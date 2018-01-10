@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+
 import './App.css'
 import GrossingAppsListing from './GrossingAppsListing'
 import FreeAppsListing from './FreeAppsListing'
-
 import SearchBar from './SearchBar'
+import Loading from './Loading'
 
 class App extends Component {
   constructor (props) {
@@ -43,11 +44,12 @@ class App extends Component {
   }
 
   render () {
-    const { topFreeAppsEntries, topGrossingAppsEntries, appDetail } = this.props
+    const { topFreeAppsEntries, topGrossingAppsEntries, appDetail, isFetching } = this.props
     const filteredTopFreeApps = topFreeAppsEntries
     const filteredTopGrossingAppsEntries = topGrossingAppsEntries
     return (
-      <div className="App">
+      <div className="App" style={{ 'paddingTop': '50px' }}>
+        {isFetching && <Loading/>}
         <section className="search-bar-section">
           <nav className="navbar navbar-default navbar-fixed-top" style={{ display: 'flex', alignItems: 'center' }}>
             <div className="container" style={{ width: '100%' }}>
@@ -73,7 +75,8 @@ App.propTypes = {
   isLookupAppStoreAppDetail: PropTypes.bool.isRequired,
   topFreeAppsEntries: PropTypes.array.isRequired,
   topGrossingAppsEntries: PropTypes.array.isRequired,
-  appDetail: PropTypes.object.isRequired
+  appDetail: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool.isRequired
 }
 
 export default App

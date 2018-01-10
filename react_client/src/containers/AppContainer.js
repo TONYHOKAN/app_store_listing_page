@@ -7,13 +7,17 @@ import {
 import App from '../components/App'
 
 const mapStateToProps = (state) => {
+  const isFetchingAppStoreTopFreeApps = state.appStore.isFetchingAppStoreTopFreeApps
+  const isFetchingAppStoreTopGrossingApps = state.appStore.isFetchingAppStoreTopGrossingApps
+  const isLookupAppStoreAppDetail = state.appStore.isLookupAppStoreAppDetail
   return {
-    isFetchingAppStoreTopFreeApps: state.appStore.isFetchingAppStoreTopFreeApps,
-    isFetchingAppStoreTopGrossingApps: state.appStore.isFetchingAppStoreTopGrossingApps,
-    isLookupAppStoreAppDetail: state.appStore.isLookupAppStoreAppDetail,
+    isFetchingAppStoreTopFreeApps,
+    isFetchingAppStoreTopGrossingApps,
+    isLookupAppStoreAppDetail,
     topFreeAppsEntries: state.appStore.topFreeAppsEntries,
     topGrossingAppsEntries: state.appStore.topGrossingAppsEntries,
-    appDetail: state.appStore.appDetail
+    appDetail: state.appStore.appDetail,
+    isFetching: isFetchingAppStoreTopFreeApps || isFetchingAppStoreTopGrossingApps || isLookupAppStoreAppDetail
   }
 }
 
