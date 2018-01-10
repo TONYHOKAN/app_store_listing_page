@@ -1,4 +1,4 @@
-import axios from 'axios'
+import appStoreAppsApi from '../api/appStoreAppsApi'
 
 export const FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST = 'FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST'
 export const FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS = 'FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS'
@@ -25,8 +25,8 @@ export const fetchingAppStoreTopFreeApps = (limit) => {
   return async function (dispatch) {
     dispatch(fetchingAppStoreTopFreeAppsRequest())
     try {
-      let response = await axios.get(`https://itunes.apple.com/hk/rss/topfreeapplications/limit=${limit}/json`)
-      dispatch(fetchingAppStoreTopFreeAppsSuccess(response.data.feed.entry))
+      let apps = await appStoreAppsApi.getTopFreeApps(limit)
+      dispatch(fetchingAppStoreTopFreeAppsSuccess(apps))
     } catch (error) {
       dispatch(fetchingAppStoreTopFreeAppsFailure(error))
       throw error
@@ -52,8 +52,8 @@ export const fetchingAppStoreTopGrossingApps = (limit) => {
   return async function (dispatch) {
     dispatch(fetchingAppStoreTopGrossingAppsRequest())
     try {
-      let response = await axios.get(`https://itunes.apple.com/hk/rss/topgrossingapplications/limit=${limit}/json`)
-      dispatch(fetchingAppStoreTopGrossingAppsSuccess(response.data.feed.entry))
+      let apps = await appStoreAppsApi.getTopGrossingApps(limit)
+      dispatch(fetchingAppStoreTopGrossingAppsSuccess(apps))
     } catch (error) {
       dispatch(fetchingAppStoreTopGrossingAppsFailure(error))
       throw error
