@@ -6,6 +6,9 @@ export const FETCHING_APP_STORE_TOP_FREE_APPS_FAILURE = 'FETCHING_APP_STORE_TOP_
 export const FETCHING_APP_STORE_TOP_GROSSING_APPS_REQUEST = 'FETCHING_APP_STORE_TOP_GROSSING_APPS_REQUEST'
 export const FETCHING_APP_STORE_TOP_GROSSING_APPS_SUCCESS = 'FETCHING_APP_STORE_TOP_GROSSING_APPS_SUCCESS'
 export const FETCHING_APP_STORE_TOP_GROSSING_APPS_FAILURE = 'FETCHING_APP_STORE_TOP_GROSSING_APPS_FAILURE'
+export const LOOKUP_APP_STORE_APP_DETAIL_REQUEST = 'LOOKUP_APP_STORE_APP_DETAIL_REQUEST'
+export const LOOKUP_APP_STORE_APP_DETAIL_SUCCESS = 'LOOKUP_APP_STORE_APP_DETAIL_SUCCESS'
+export const LOOKUP_APP_STORE_APP_DETAIL_FAILURE = 'LOOKUP_APP_STORE_APP_DETAIL_FAILURE'
 
 export const fetchingAppStoreTopFreeAppsRequest = () => ({
   type: FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST
@@ -56,6 +59,33 @@ export const fetchingAppStoreTopGrossingApps = (limit) => {
       dispatch(fetchingAppStoreTopGrossingAppsSuccess(apps))
     } catch (error) {
       dispatch(fetchingAppStoreTopGrossingAppsFailure(error))
+      throw error
+    }
+  }
+}
+
+export const lookupAppStoreAppDetailRequest = () => ({
+  type: LOOKUP_APP_STORE_APP_DETAIL_REQUEST
+})
+
+export const lookupAppStoreAppDetailSuccess = (appDetail) => ({
+  type: LOOKUP_APP_STORE_APP_DETAIL_SUCCESS,
+  appDetail
+})
+
+export const lookupAppStoreAppDetailFailure = (error) => ({
+  type: LOOKUP_APP_STORE_APP_DETAIL_FAILURE,
+  error
+})
+
+export const lookupAppStoreAppDetail = (appId) => {
+  return async function (dispatch) {
+    dispatch(lookupAppStoreAppDetailRequest())
+    try {
+      let appDetail = await appStoreAppsApi.lookupAppDetail(appId)
+      dispatch(lookupAppStoreAppDetailSuccess(appDetail))
+    } catch (error) {
+      dispatch(lookupAppStoreAppDetailFailure(error))
       throw error
     }
   }
