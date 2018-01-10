@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchingAppStoreTopApps } from '../actions/appStore'
+import { fetchingAppStoreTopFreeApps } from '../actions/appStore'
 import App from '../components/App'
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = () => {
   return {
-    fetchingAppStoreTopApps
+    fetchingAppStoreTopFreeApps
   }
 }
 
