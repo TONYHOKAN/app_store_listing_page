@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import { persistStore } from 'redux-persist'
 import rootReducer from './reducers'
 
 export default function configureStore (initialState = {}, composeFunction = compose, middlewares = [], ...enhancers) {
@@ -12,6 +13,7 @@ export default function configureStore (initialState = {}, composeFunction = com
     , initialState
     , composeFunction(...allEnhancers)
   )
+  let persistor = persistStore(store)
 
-  return store
+  return { persistor, store }
 }
