@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './App.css'
 import GrossingAppsListing from './GrossingAppsListing'
+import FreeAppsListing from './FreeAppsListing'
 
 import SearchBar from './SearchBar'
 
@@ -42,7 +43,7 @@ class App extends Component {
   }
 
   render () {
-    const { topFreeAppsEntries, topGrossingAppsEntries } = this.props
+    const { topFreeAppsEntries, topGrossingAppsEntries, appDetail } = this.props
     const filteredTopFreeApps = topFreeAppsEntries
     const filteredTopGrossingAppsEntries = topGrossingAppsEntries
     return (
@@ -52,6 +53,7 @@ class App extends Component {
         </section>
         <section className="app-listing-section">
           <GrossingAppsListing grossingApps={filteredTopFreeApps}/>
+          <FreeAppsListing freeApps={filteredTopGrossingAppsEntries} appDetail={appDetail}/>
         </section>
       </div>
     )
