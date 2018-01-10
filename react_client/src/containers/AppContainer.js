@@ -17,17 +17,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = () => {
-  return {
+const AppContainer = connect(
+  mapStateToProps,
+  {
     fetchingAppStoreTopFreeApps,
     fetchingAppStoreTopGrossingApps,
     lookupAppStoreAppDetail
   }
-}
-
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
 )(App)
 
 export default AppContainer

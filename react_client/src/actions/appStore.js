@@ -30,6 +30,7 @@ export const fetchingAppStoreTopFreeApps = (limit) => {
     try {
       let apps = await appStoreAppsApi.getTopFreeApps(limit)
       dispatch(fetchingAppStoreTopFreeAppsSuccess(apps))
+      return apps
     } catch (error) {
       dispatch(fetchingAppStoreTopFreeAppsFailure(error))
       throw error
@@ -57,6 +58,7 @@ export const fetchingAppStoreTopGrossingApps = (limit) => {
     try {
       let apps = await appStoreAppsApi.getTopGrossingApps(limit)
       dispatch(fetchingAppStoreTopGrossingAppsSuccess(apps))
+      return apps
     } catch (error) {
       dispatch(fetchingAppStoreTopGrossingAppsFailure(error))
       throw error
