@@ -20,8 +20,8 @@ const mock = new MockAdapter(axios)
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
-mock.onGet('https://itunes.apple.com/hk/rss/topfreeapplications/limit=1/json').reply(200, appStoreTopFreeAppsMock)
-mock.onGet('https://itunes.apple.com/hk/rss/topgrossingapplications/limit=1/json').reply(200, appStoreTopGrossingAppsMock)
+mock.onGet('https://itunes.apple.com/hk/rss/topfreeapplications/limit=1/json').reply(200, appStoreTopFreeAppsMock.mockResponse)
+mock.onGet('https://itunes.apple.com/hk/rss/topgrossingapplications/limit=1/json').reply(200, appStoreTopGrossingAppsMock.mockResponse)
 
 describe('async actions', () => {
   it('create actions of FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST and FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS when fetching app store api has been triggered and done', () => {
@@ -29,7 +29,7 @@ describe('async actions', () => {
 
     const expectedActions = [
       { type: FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST },
-      { type: FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS, topFreeAppsEntries: appStoreTopFreeAppsMock.feed.entry }
+      { type: FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS, topFreeAppsEntries: appStoreTopFreeAppsMock.expectedResult }
     ]
     const store = mockStore({ appStore: { topFreeAppsEntries: [] } })
 
@@ -44,7 +44,7 @@ describe('async actions', () => {
 
     const expectedActions = [
       { type: FETCHING_APP_STORE_TOP_GROSSING_APPS_REQUEST },
-      { type: FETCHING_APP_STORE_TOP_GROSSING_APPS_SUCCESS, topGrossingAppsEntries: appStoreTopGrossingAppsMock.feed.entry }
+      { type: FETCHING_APP_STORE_TOP_GROSSING_APPS_SUCCESS, topGrossingAppsEntries: appStoreTopGrossingAppsMock.expectedResult }
     ]
     const store = mockStore({ appStore: { topGrossingAppsEntries: [] } })
 
