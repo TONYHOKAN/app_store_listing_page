@@ -49,7 +49,11 @@ class App extends Component {
     return (
       <div className="App">
         <section className="search-bar-section">
-          <SearchBar searchAction={this.searchFilter}/>
+          <nav className="navbar navbar-default navbar-fixed-top" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="container" style={{ width: '100%' }}>
+              <SearchBar searchAction={this.searchFilter}/>
+            </div>
+          </nav>
         </section>
         <section className="app-listing-section">
           <GrossingAppsListing grossingApps={filteredTopFreeApps}/>
