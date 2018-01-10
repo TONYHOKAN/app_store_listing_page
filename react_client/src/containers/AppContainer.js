@@ -1,16 +1,27 @@
 import { connect } from 'react-redux'
-import { fetchingAppStoreTopFreeApps } from '../actions/appStore'
+import {
+  fetchingAppStoreTopFreeApps,
+  fetchingAppStoreTopGrossingApps,
+  lookupAppStoreAppDetail
+} from '../actions/appStore'
 import App from '../components/App'
 
 const mapStateToProps = (state) => {
   return {
-    topFreeAppsEntries: state.appStore.topFreeAppsEntries
+    isFetchingAppStoreTopFreeApps: state.appStore.isFetchingAppStoreTopFreeApps,
+    isFetchingAppStoreTopGrossingApps: state.appStore.isFetchingAppStoreTopGrossingApps,
+    isLookupAppStoreAppDetail: state.appStore.isLookupAppStoreAppDetail,
+    topFreeAppsEntries: state.appStore.topFreeAppsEntries,
+    topGrossingAppsEntries: state.appStore.topGrossingAppsEntries,
+    appDetail: state.appStore.appDetail
   }
 }
 
 const mapDispatchToProps = () => {
   return {
-    fetchingAppStoreTopFreeApps
+    fetchingAppStoreTopFreeApps,
+    fetchingAppStoreTopGrossingApps,
+    lookupAppStoreAppDetail
   }
 }
 
