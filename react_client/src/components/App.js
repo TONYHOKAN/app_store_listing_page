@@ -90,8 +90,8 @@ class App extends Component {
           </Navbar>
         </section>
         <section className="app-listing-section">
-          <GrossingAppsListing grossingApps={filteredTopFreeApps}/>
-          <FreeAppsListing freeApps={filteredTopGrossingAppsEntries} appDetail={appDetail}/>
+          <GrossingAppsListing grossingApps={filteredTopGrossingAppsEntries}/>
+          <FreeAppsListing freeApps={filteredTopFreeApps} appDetail={appDetail}/>
         </section>
       </div>
     )
