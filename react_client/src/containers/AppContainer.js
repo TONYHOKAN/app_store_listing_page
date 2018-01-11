@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import {
   fetchingAppStoreTopFreeApps,
   fetchingAppStoreTopGrossingApps,
-  lookupAppStoreAppDetail,
   clearAppStoreData
 } from '../actions/appStore'
 import App from '../components/App'
@@ -10,15 +9,13 @@ import App from '../components/App'
 const mapStateToProps = (state) => {
   const isFetchingAppStoreTopFreeApps = state.appStore.isFetchingAppStoreTopFreeApps
   const isFetchingAppStoreTopGrossingApps = state.appStore.isFetchingAppStoreTopGrossingApps
-  const isLookupAppStoreAppDetail = state.appStore.isLookupAppStoreAppDetail
   return {
     isFetchingAppStoreTopFreeApps,
     isFetchingAppStoreTopGrossingApps,
-    isLookupAppStoreAppDetail,
     topFreeAppsEntries: state.appStore.topFreeAppsEntries,
     topGrossingAppsEntries: state.appStore.topGrossingAppsEntries,
     appDetail: state.appStore.appDetail,
-    isFetching: isFetchingAppStoreTopFreeApps || isFetchingAppStoreTopGrossingApps || isLookupAppStoreAppDetail
+    isFetching: isFetchingAppStoreTopFreeApps || isFetchingAppStoreTopGrossingApps
   }
 }
 
@@ -27,7 +24,6 @@ const AppContainer = connect(
   {
     fetchingAppStoreTopFreeApps,
     fetchingAppStoreTopGrossingApps,
-    lookupAppStoreAppDetail,
     clearAppStoreData
   }
 )(App)

@@ -1,17 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ListGroup, ListGroupItem } from 'reactstrap'
+import LazyLoad from 'react-lazyload'
 
-import FreeApp from './FreeApp'
+import SpinLoading from './SpinLoading'
+import FreeAppContainer from '../containers/FreeAppContainer'
 
 const FreeAppsListing = (props) => {
-  const { freeApps, appDetail } = props
+  const { freeApps } = props
   return (
     <ListGroup>
       {freeApps.map((app, index) => {
         return (
           <ListGroupItem key={`free-app-${app.id}`}>
-            {appDetail[app.id] && <FreeApp name={app.name} imageUrl={app.image} category={app.category} averageUserRating={appDetail[app.id].averageUserRating} userRatingCountForCurrentVersion={appDetail[app.id].userRatingCountForCurrentVersion} isCircleImage={(index + 1) % 2 === 0} rank={index + 1}/>}
+            {
+              // offset mean component will be loaded when it's top edge is 1px from viewport
+              <LazyLoad height={130} once offset={1} placeholder={<SpinLoading/>}>
+                <FreeAppContainer name={app.name} imageUrl={app.image} category={app.category} isCircleImage={(index + 1) % 2 === 0} rank={index + 1} appId={app.id}/>
+              </LazyLoad>
+            }
           </ListGroupItem>
         )
       })}
@@ -21,8 +28,7 @@ const FreeAppsListing = (props) => {
 }
 
 FreeAppsListing.propTypes = {
-  freeApps: PropTypes.array.isRequired,
-  appDetail: PropTypes.object.isRequired
+  freeApps: PropTypes.array.isRequired
 }
 
 export default FreeAppsListing

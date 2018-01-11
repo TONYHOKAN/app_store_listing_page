@@ -14,7 +14,7 @@ import {
 const initialState = {
   isFetchingAppStoreTopFreeApps: false,
   isFetchingAppStoreTopGrossingApps: false,
-  isLookupAppStoreAppDetail: false,
+  lookupAppStoreAppDetailHash: {},
   topFreeAppsEntries: [],
   topGrossingAppsEntries: [],
   appDetail: {}
@@ -55,24 +55,33 @@ export default function (state = initialState, action) {
         isFetchingAppStoreTopGrossingApps: false
       }
 
-    case LOOKUP_APP_STORE_APP_DETAIL_REQUEST:
+    case LOOKUP_APP_STORE_APP_DETAIL_REQUEST: {
+      let cloneObjectOfLookupAppStoreAppDetailHash = Object.assign({}, state.lookupAppStoreAppDetailHash)
+      cloneObjectOfLookupAppStoreAppDetailHash[action.appId] = 1
       return {
         ...state,
-        isLookupAppStoreAppDetail: true
+        lookupAppStoreAppDetailHash: cloneObjectOfLookupAppStoreAppDetailHash
       }
-    case LOOKUP_APP_STORE_APP_DETAIL_SUCCESS:
+    }
+    case LOOKUP_APP_STORE_APP_DETAIL_SUCCESS: {
       let cloneObjectOfAppDetail = Object.assign({}, state.appDetail)
+      let cloneObjectOfLookupAppStoreAppDetailHash = Object.assign({}, state.lookupAppStoreAppDetailHash)
+      delete cloneObjectOfLookupAppStoreAppDetailHash[action.appDetail.id]
       cloneObjectOfAppDetail[action.appDetail.id] = action.appDetail
       return {
         ...state,
-        isLookupAppStoreAppDetail: false,
+        lookupAppStoreAppDetailHash: cloneObjectOfLookupAppStoreAppDetailHash,
         appDetail: cloneObjectOfAppDetail
       }
-    case LOOKUP_APP_STORE_APP_DETAIL_FAILURE:
+    }
+    case LOOKUP_APP_STORE_APP_DETAIL_FAILURE: {
+      let cloneObjectOfLookupAppStoreAppDetailHash = Object.assign({}, state.lookupAppStoreAppDetailHash)
+      delete cloneObjectOfLookupAppStoreAppDetailHash[action.appId]
       return {
         ...state,
-        isLookupAppStoreAppDetail: false
+        lookupAppStoreAppDetailHash: cloneObjectOfLookupAppStoreAppDetailHash
       }
+    }
     case CLEAR_APP_STORE_DATA:
       return initialState
     default:

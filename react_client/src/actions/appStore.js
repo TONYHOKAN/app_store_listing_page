@@ -67,8 +67,9 @@ export const fetchingAppStoreTopGrossingApps = (limit) => {
   }
 }
 
-export const lookupAppStoreAppDetailRequest = () => ({
-  type: LOOKUP_APP_STORE_APP_DETAIL_REQUEST
+export const lookupAppStoreAppDetailRequest = (appId) => ({
+  type: LOOKUP_APP_STORE_APP_DETAIL_REQUEST,
+  appId
 })
 
 export const lookupAppStoreAppDetailSuccess = (appDetail) => ({
@@ -76,19 +77,20 @@ export const lookupAppStoreAppDetailSuccess = (appDetail) => ({
   appDetail
 })
 
-export const lookupAppStoreAppDetailFailure = (error) => ({
+export const lookupAppStoreAppDetailFailure = (error, appId) => ({
   type: LOOKUP_APP_STORE_APP_DETAIL_FAILURE,
-  error
+  error,
+  appId
 })
 
 export const lookupAppStoreAppDetail = (appId) => {
   return async function (dispatch) {
-    dispatch(lookupAppStoreAppDetailRequest())
+    dispatch(lookupAppStoreAppDetailRequest(appId))
     try {
       let appDetail = await appStoreAppsApi.lookupAppDetail(appId)
       dispatch(lookupAppStoreAppDetailSuccess(appDetail))
     } catch (error) {
-      dispatch(lookupAppStoreAppDetailFailure(error))
+      dispatch(lookupAppStoreAppDetailFailure(error, appId))
       throw error
     }
   }

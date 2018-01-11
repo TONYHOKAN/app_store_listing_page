@@ -29,24 +29,12 @@ class App extends Component {
   }
 
   componentWillMount () {
-    const { fetchingAppStoreTopFreeApps, fetchingAppStoreTopGrossingApps, lookupAppStoreAppDetail, appDetail, topFreeAppsEntries, topGrossingAppsEntries } = this.props
+    const { fetchingAppStoreTopFreeApps, fetchingAppStoreTopGrossingApps, topFreeAppsEntries, topGrossingAppsEntries } = this.props
     if (topFreeAppsEntries.length === 0) {
-      fetchingAppStoreTopFreeApps(10).then(apps => {
-        apps.forEach(app => {
-          if (!appDetail[app.id]) {
-            lookupAppStoreAppDetail(app.id)
-          }
-        })
-      })
+      fetchingAppStoreTopFreeApps(10)
     }
     if (topGrossingAppsEntries.length === 0) {
-      fetchingAppStoreTopGrossingApps(10).then(apps => {
-        apps.forEach(app => {
-          if (!appDetail[app.id]) {
-            lookupAppStoreAppDetail(app.id)
-          }
-        })
-      })
+      fetchingAppStoreTopGrossingApps(10)
     }
   }
 
@@ -61,7 +49,7 @@ class App extends Component {
   }
 
   render () {
-    const { topFreeAppsEntries, topGrossingAppsEntries, appDetail, isFetching, clearAppStoreData } = this.props
+    const { topFreeAppsEntries, topGrossingAppsEntries, isFetching, clearAppStoreData } = this.props
     const filteredTopFreeApps = topFreeAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     const filteredTopGrossingAppsEntries = topGrossingAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     return (
@@ -91,7 +79,7 @@ class App extends Component {
         </section>
         <section className="app-listing-section">
           <GrossingAppsListing grossingApps={filteredTopGrossingAppsEntries}/>
-          <FreeAppsListing freeApps={filteredTopFreeApps} appDetail={appDetail}/>
+          <FreeAppsListing freeApps={filteredTopFreeApps}/>
         </section>
       </div>
     )
@@ -101,13 +89,10 @@ class App extends Component {
 App.propTypes = {
   fetchingAppStoreTopFreeApps: PropTypes.func.isRequired,
   fetchingAppStoreTopGrossingApps: PropTypes.func.isRequired,
-  lookupAppStoreAppDetail: PropTypes.func.isRequired,
   isFetchingAppStoreTopFreeApps: PropTypes.bool.isRequired,
   isFetchingAppStoreTopGrossingApps: PropTypes.bool.isRequired,
-  isLookupAppStoreAppDetail: PropTypes.bool.isRequired,
   topFreeAppsEntries: PropTypes.array.isRequired,
   topGrossingAppsEntries: PropTypes.array.isRequired,
-  appDetail: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
   clearAppStoreData: PropTypes.func.isRequired
 }
