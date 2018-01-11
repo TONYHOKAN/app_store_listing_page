@@ -96,6 +96,7 @@ export const lookupAppStoreAppDetail = (appId) => {
   }
 }
 
-export const clearAppStoreData = () => ({
-  type: CLEAR_APP_STORE_DATA
+export const clearAppStoreData = (appType) => ({
+  type: CLEAR_APP_STORE_DATA,
+  appType
 })

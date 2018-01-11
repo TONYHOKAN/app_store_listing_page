@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   render () {
-    const { topFreeAppsEntries, topGrossingAppsEntries, isFetching, clearAppStoreData } = this.props
+    const { topFreeAppsEntries, topGrossingAppsEntries, isFetching, clearAppStoreData, fetchingAppStoreTopFreeApps, fetchingAppStoreTopGrossingApps } = this.props
     const filteredTopFreeApps = topFreeAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     const filteredTopGrossingAppsEntries = topGrossingAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     return (
@@ -67,9 +67,29 @@ class App extends Component {
                   <NavItem>
                     <NavLink href="#" onClick={() => {
                       this.toggleNavbar()
-                      clearAppStoreData()
+                      clearAppStoreData('topGrossingApp')
+                      fetchingAppStoreTopGrossingApps(10)
                     }}>
-                      清除暫存
+                      清除推介應用暫存，重新搜索
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="#" onClick={() => {
+                      this.toggleNavbar()
+                      clearAppStoreData('topFreeApp')
+                      fetchingAppStoreTopFreeApps(10)
+                    }}>
+                      清除免費應用暫存，重新搜索
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="#" onClick={() => {
+                      this.toggleNavbar()
+                      clearAppStoreData()
+                      fetchingAppStoreTopFreeApps(10)
+                      fetchingAppStoreTopGrossingApps(10)
+                    }}>
+                      清除所有應用暫存，重新搜索
                     </NavLink>
                   </NavItem>
                 </Nav>

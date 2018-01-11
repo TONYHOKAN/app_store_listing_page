@@ -82,8 +82,22 @@ export default function (state = initialState, action) {
         lookupAppStoreAppDetailHash: cloneObjectOfLookupAppStoreAppDetailHash
       }
     }
-    case CLEAR_APP_STORE_DATA:
-      return initialState
+    case CLEAR_APP_STORE_DATA: {
+      if (action.appType === 'topFreeApp') {
+        return {
+          ...state,
+          topFreeAppsEntries: [],
+          appDetail: {}
+        }
+      } else if (action.appType === 'topGrossingApp') {
+        return {
+          ...state,
+          topGrossingAppsEntries: []
+        }
+      } else {
+        return initialState
+      }
+    }
     default:
       return state
   }
