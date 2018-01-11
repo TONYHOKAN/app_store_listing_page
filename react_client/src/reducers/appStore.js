@@ -7,7 +7,8 @@ import {
   FETCHING_APP_STORE_TOP_GROSSING_APPS_FAILURE,
   LOOKUP_APP_STORE_APP_DETAIL_REQUEST,
   LOOKUP_APP_STORE_APP_DETAIL_SUCCESS,
-  LOOKUP_APP_STORE_APP_DETAIL_FAILURE
+  LOOKUP_APP_STORE_APP_DETAIL_FAILURE,
+  CLEAR_APP_STORE_DATA
 } from '../actions/appStore'
 
 const initialState = {
@@ -72,6 +73,8 @@ export default function (state = initialState, action) {
         ...state,
         isLookupAppStoreAppDetail: false
       }
+    case CLEAR_APP_STORE_DATA:
+      return initialState
     default:
       return state
   }

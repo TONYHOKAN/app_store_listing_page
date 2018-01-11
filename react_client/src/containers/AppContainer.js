@@ -2,7 +2,8 @@ import { connect } from 'react-redux'
 import {
   fetchingAppStoreTopFreeApps,
   fetchingAppStoreTopGrossingApps,
-  lookupAppStoreAppDetail
+  lookupAppStoreAppDetail,
+  clearAppStoreData
 } from '../actions/appStore'
 import App from '../components/App'
 
@@ -26,7 +27,8 @@ const AppContainer = connect(
   {
     fetchingAppStoreTopFreeApps,
     fetchingAppStoreTopGrossingApps,
-    lookupAppStoreAppDetail
+    lookupAppStoreAppDetail,
+    clearAppStoreData
   }
 )(App)
 

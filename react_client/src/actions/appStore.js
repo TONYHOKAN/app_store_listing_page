@@ -9,6 +9,7 @@ export const FETCHING_APP_STORE_TOP_GROSSING_APPS_FAILURE = 'FETCHING_APP_STORE_
 export const LOOKUP_APP_STORE_APP_DETAIL_REQUEST = 'LOOKUP_APP_STORE_APP_DETAIL_REQUEST'
 export const LOOKUP_APP_STORE_APP_DETAIL_SUCCESS = 'LOOKUP_APP_STORE_APP_DETAIL_SUCCESS'
 export const LOOKUP_APP_STORE_APP_DETAIL_FAILURE = 'LOOKUP_APP_STORE_APP_DETAIL_FAILURE'
+export const CLEAR_APP_STORE_DATA = 'CLEAR_APP_STORE_DATA'
 
 export const fetchingAppStoreTopFreeAppsRequest = () => ({
   type: FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST
@@ -92,3 +93,7 @@ export const lookupAppStoreAppDetail = (appId) => {
     }
   }
 }
+
+export const clearAppStoreData = () => ({
+  type: CLEAR_APP_STORE_DATA
+})

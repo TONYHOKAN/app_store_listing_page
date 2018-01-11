@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {
+  Navbar,
+  NavbarToggler,
+  Collapse,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap'
 
 import './App.css'
 import GrossingAppsListing from './GrossingAppsListing'
@@ -12,9 +20,11 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.searchFilter = this.searchFilter.bind(this)
+    this.toggleNavbar = this.toggleNavbar.bind(this)
     this.state = {
       page: 1,
-      searchKey: ''
+      searchKey: '',
+      collapsed: true
     }
   }
 
@@ -44,19 +54,40 @@ class App extends Component {
     this.setState({ searchKey: value })
   }
 
+  toggleNavbar () {
+    this.setState({
+      collapsed: !this.state.collapsed
+    })
+  }
+
   render () {
-    const { topFreeAppsEntries, topGrossingAppsEntries, appDetail, isFetching } = this.props
+    const { topFreeAppsEntries, topGrossingAppsEntries, appDetail, isFetching, clearAppStoreData } = this.props
     const filteredTopFreeApps = topFreeAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     const filteredTopGrossingAppsEntries = topGrossingAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     return (
       <div className="App" style={{ 'paddingTop': '50px' }}>
         {isFetching && <Loading/>}
         <section className="search-bar-section">
-          <nav className="navbar navbar-default navbar-fixed-top" style={{ display: 'flex', alignItems: 'center' }}>
+          <Navbar className="navbar fixed-top navbar-light bg-faded">
             <div className="container" style={{ width: '100%' }}>
-              <SearchBar searchAction={this.searchFilter}/>
+              <div style={{ display: 'flex' }}>
+                <SearchBar searchAction={this.searchFilter}/>
+                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+              </div>
+              <Collapse isOpen={!this.state.collapsed} navbar>
+                <Nav navbar>
+                  <NavItem>
+                    <NavLink href="#" onClick={() => {
+                      this.toggleNavbar()
+                      clearAppStoreData()
+                    }}>
+                      清除暫存
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+              </Collapse>
             </div>
-          </nav>
+          </Navbar>
         </section>
         <section className="app-listing-section">
           <GrossingAppsListing grossingApps={filteredTopFreeApps}/>
@@ -77,7 +108,8 @@ App.propTypes = {
   topFreeAppsEntries: PropTypes.array.isRequired,
   topGrossingAppsEntries: PropTypes.array.isRequired,
   appDetail: PropTypes.object.isRequired,
-  isFetching: PropTypes.bool.isRequired
+  isFetching: PropTypes.bool.isRequired,
+  clearAppStoreData: PropTypes.func.isRequired
 }
 
 export default App

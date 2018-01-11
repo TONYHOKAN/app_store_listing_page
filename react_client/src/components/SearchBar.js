@@ -16,7 +16,7 @@ class SearchBar extends React.PureComponent {
 
   render () {
     return (
-      <div>
+      <div style={{ width: '100%' }}>
         <Input placeholder="搜尋" type="text" value={this.state.searchText} onChange={this.onChange}/>
       </div>
     )
