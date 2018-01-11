@@ -51,7 +51,9 @@ class FreeApp extends Component {
         <div style={{ margin: '10px' }}>
           <div style={style.text}>{name}</div>
           <div style={{ color: '#9d9d9d', ...style.text }}>{category}</div>
-          <div style={{ color: '#9d9d9d', display: 'flex' }}><StarRatingComponent name={`start-${appId}`} starCount={5} value={averageUserRating}/>&nbsp;{`(${userRatingCountForCurrentVersion})`}</div>
+          <div style={{ color: '#9d9d9d', display: 'flex' }}>
+            <StarRatingComponent name={`start-${appId}`} starCount={5} value={averageUserRating} editing={false}/>&nbsp;{`(${userRatingCountForCurrentVersion})`}
+          </div>
         </div>
       </div>
     )
