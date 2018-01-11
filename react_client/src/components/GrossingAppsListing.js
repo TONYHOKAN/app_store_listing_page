@@ -14,6 +14,7 @@ const GrossingAppsListing = (props) => {
       <div style={{marginLeft: '10px', fontSize: '3rem'}} >推介</div>
       <div style={style}>
         {props.grossingApps.map(app => <GrossingApp key={`grossing-app-${app.id}`} name={app.name} imageUrl={app.image} category={app.category}/>)}
+        {props.grossingApps.length === 0 && <span>沒有搜尋結果</span>}
       </div>
     </div>
   )

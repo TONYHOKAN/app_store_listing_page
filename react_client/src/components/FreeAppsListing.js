@@ -15,6 +15,7 @@ const FreeAppsListing = (props) => {
           </ListGroupItem>
         )
       })}
+      {freeApps.length === 0 && <span>沒有搜尋結果</span>}
     </ListGroup>
   )
 }
