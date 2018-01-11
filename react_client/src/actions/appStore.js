@@ -15,9 +15,10 @@ export const fetchingAppStoreTopFreeAppsRequest = () => ({
   type: FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST
 })
 
-export const fetchingAppStoreTopFreeAppsSuccess = (topFreeAppsEntries) => ({
+export const fetchingAppStoreTopFreeAppsSuccess = (topFreeAppsEntries, page) => ({
   type: FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS,
-  topFreeAppsEntries
+  topFreeAppsEntries,
+  page
 })
 
 export const fetchingAppStoreTopFreeAppsFailure = (error) => ({
@@ -25,12 +26,12 @@ export const fetchingAppStoreTopFreeAppsFailure = (error) => ({
   error
 })
 
-export const fetchingAppStoreTopFreeApps = (limit) => {
+export const fetchingAppStoreTopFreeApps = (limit, page = 1) => {
   return async function (dispatch) {
     dispatch(fetchingAppStoreTopFreeAppsRequest())
     try {
-      let apps = await appStoreAppsApi.getTopFreeApps(limit)
-      dispatch(fetchingAppStoreTopFreeAppsSuccess(apps))
+      let apps = await appStoreAppsApi.getTopFreeApps(limit * page)
+      dispatch(fetchingAppStoreTopFreeAppsSuccess(apps, page))
       return apps
     } catch (error) {
       dispatch(fetchingAppStoreTopFreeAppsFailure(error))

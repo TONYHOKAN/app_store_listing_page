@@ -8,6 +8,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap'
+import InfiniteScroll from 'react-infinite-scroller'
 
 import './App.css'
 import GrossingAppsListing from './GrossingAppsListing'
@@ -21,8 +22,8 @@ class App extends Component {
     super(props)
     this.searchFilter = this.searchFilter.bind(this)
     this.toggleNavbar = this.toggleNavbar.bind(this)
+    this.loadMore = this.loadMore.bind(this)
     this.state = {
-      page: 1,
       searchKey: '',
       collapsed: true
     }
@@ -43,15 +44,19 @@ class App extends Component {
   }
 
   toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    })
+    this.setState({ collapsed: !this.state.collapsed })
+  }
+
+  loadMore () {
+    const newPage = this.props.topFreeAppsPage + 1
+    this.props.fetchingAppStoreTopFreeApps(10, newPage)
+    this.setState({ page: newPage })
   }
 
   render () {
-    const { topFreeAppsEntries, topGrossingAppsEntries, isFetching, clearAppStoreData, fetchingAppStoreTopFreeApps, fetchingAppStoreTopGrossingApps } = this.props
-    const filteredTopFreeApps = topFreeAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
-    const filteredTopGrossingAppsEntries = topGrossingAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
+    const { topFreeAppsEntries, topGrossingAppsEntries, isFetching, clearAppStoreData, fetchingAppStoreTopFreeApps, fetchingAppStoreTopGrossingApps, topFreeAppsPage } = this.props
+    const filteredTopFreeApps = this.state.searchKey === '' ? topFreeAppsEntries : topFreeAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
+    const filteredTopGrossingAppsEntries = this.state.searchKey === '' ? topGrossingAppsEntries : topGrossingAppsEntries.filter(app => isSearchKeyMatched(app, this.state.searchKey))
     return (
       <div className="App" style={{ 'paddingTop': '50px' }}>
         {isFetching && <Loading/>}
@@ -97,10 +102,18 @@ class App extends Component {
             </div>
           </Navbar>
         </section>
-        <section className="app-listing-section">
-          <GrossingAppsListing grossingApps={filteredTopGrossingAppsEntries}/>
-          <FreeAppsListing freeApps={filteredTopFreeApps}/>
-        </section>
+        <InfiniteScroll
+          pageStart={1}
+          loadMore={this.loadMore}
+          hasMore={!isFetching && topFreeAppsPage < 10}
+          loader={<div className="loader">Loading ...</div>}
+          useWindow={true}
+        >
+          <section className="app-listing-section">
+            <GrossingAppsListing grossingApps={filteredTopGrossingAppsEntries}/>
+            <FreeAppsListing freeApps={filteredTopFreeApps}/>
+          </section>
+        </InfiniteScroll>
       </div>
     )
   }
@@ -114,7 +127,8 @@ App.propTypes = {
   topFreeAppsEntries: PropTypes.array.isRequired,
   topGrossingAppsEntries: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  clearAppStoreData: PropTypes.func.isRequired
+  clearAppStoreData: PropTypes.func.isRequired,
+  topFreeAppsPage: PropTypes.number.isRequired
 }
 
 export default App

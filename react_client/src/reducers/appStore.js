@@ -17,7 +17,8 @@ const initialState = {
   lookupAppStoreAppDetailHash: {},
   topFreeAppsEntries: [],
   topGrossingAppsEntries: [],
-  appDetail: {}
+  appDetail: {},
+  topFreeAppsPage: 1
 }
 
 export default function (state = initialState, action) {
@@ -31,7 +32,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetchingAppStoreTopFreeApps: false,
-        topFreeAppsEntries: action.topFreeAppsEntries
+        topFreeAppsEntries: state.topFreeAppsEntries.concat(action.topFreeAppsEntries.slice((action.page - 1) * 10)),
+        topFreeAppsPage: action.page
       }
     case FETCHING_APP_STORE_TOP_FREE_APPS_FAILURE:
       return {

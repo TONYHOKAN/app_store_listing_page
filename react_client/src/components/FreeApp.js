@@ -36,7 +36,7 @@ class FreeApp extends Component {
   render () {
     const { appId, name, imageUrl, category, appDetail, isCircleImage, rank } = this.props
     if (this.state.waitingFetchingComplete) {
-      return <SpinLoading/>
+      return <div style={{ height: '130px', width: '100%', display: 'flex' }}><SpinLoading/></div>
     }
     const averageUserRating = appDetail[appId].averageUserRating
     const userRatingCountForCurrentVersion = appDetail[appId].userRatingCountForCurrentVersion

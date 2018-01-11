@@ -15,7 +15,8 @@ const mapStateToProps = (state) => {
     topFreeAppsEntries: state.appStore.topFreeAppsEntries,
     topGrossingAppsEntries: state.appStore.topGrossingAppsEntries,
     appDetail: state.appStore.appDetail,
-    isFetching: isFetchingAppStoreTopFreeApps || isFetchingAppStoreTopGrossingApps
+    isFetching: isFetchingAppStoreTopFreeApps || isFetchingAppStoreTopGrossingApps,
+    topFreeAppsPage: state.appStore.topFreeAppsPage
   }
 }
 
