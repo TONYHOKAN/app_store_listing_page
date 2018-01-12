@@ -1,9 +1,9 @@
-#Requirements
+# Requirements
 1. By using HTML, CSS, React.JS create a single page web application that redesign the
 App Store listing page. There are 3 major features: app listing, app recommendation
 and search. A sample layout is provided below for your reference;
 
-#App listing
+# App listing
 - [x] 2. Display top 100 free apps;
 - [x] 3. Data source can be found from the API;
 https://itunes.apple.com/hk/rss/topfreeapplications/limit=100/json and
@@ -12,7 +12,7 @@ https://itunes.apple.com/hk/lookup?id=[app_id]
 - [x] 5. For every odd row, app icon is cropped with round corner. For every even row, app
 icon is cropped in circle;
 
-#App recommendation
+# App recommendation
 - [x] 6. Display top 10 grossing apps;
 - [x] 7. Data source can be found from the API;
 https://itunes.apple.com/hk/rss/topgrossingapplications/limit=10/json
@@ -21,14 +21,14 @@ https://itunes.apple.com/hk/rss/topgrossingapplications/limit=10/json
 - [x] 10. Located above app listing section. When app listing section is scrolled vertically, the
 app recommendation section will also be scrolled together;
 
-#Search
+# Search
 - [x] 11. For searching the apps displayed in app listing and recommendation section by matching the keyword;
 - [x] 12. The search keyword text field is located at the top of the page, and remains the position even app listing is scrolled;
 - [x] 13. Once the search is performed, app listing and recommendation section only shows
 - [x] the apps whose app name, category, author or summary contains the keyword;
 - [x] 14. Search is performed immediately when the keyword is typed;
 
-#Hints​​ for ​​Bonus
+# Hints​​ for ​​Bonus
 - [x] 1. Use of Redux for development;
 - [x] 2. Use responsive design;
 - [ ] 3. Use of SASS / LESS for CSS
@@ -72,24 +72,46 @@ build image
 start image
 
 `docker run -p 80:80 -d app_store_listing_page`
-#What next?
+
+# What next
+
 explore rss API to add more feature
+
 SEARCH API
 https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/
+
 RSS Generator
 https://affiliate.itunes.apple.com/resources/blog/introduction-rss-feed-generator/
 
 provide more filter options e.g dropdown
+
 sorting like price
+
 localization
+
 error handling like network problem
+
 design local cache expire logic
 
-#Code Refactor
+allow user save his preset fetching criteria
+
+PWA though: if there is network problem, record the fetch and try fetch data when  network resume
+
+SASS: eject CRA and install sass-loader to have better css control
+
+try another UI framework like element UI, ant design ...etc
+
+# Code Refactor
 use react-reselect to cache component calculation logic 
+
 use type-to-reducer to avoid reducers boilerplate 
+
 use redux-promise-middleware avoid actions boilerplate 
+
 webpack code split enhance performance
+
 add more test case
+
 mock API in dev mode
-clean code
+
+clean code style
