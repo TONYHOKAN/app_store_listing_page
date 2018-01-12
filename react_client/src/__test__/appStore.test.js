@@ -34,7 +34,7 @@ describe('async actions', () => {
 
     const expectedActions = [
       { type: FETCHING_APP_STORE_TOP_FREE_APPS_REQUEST },
-      { type: FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS, topFreeAppsEntries: appStoreTopFreeAppsMock.expectedResult }
+      { page: 1, type: FETCHING_APP_STORE_TOP_FREE_APPS_SUCCESS, topFreeAppsEntries: appStoreTopFreeAppsMock.expectedResult }
     ]
     const store = mockStore({ appStore: { topFreeAppsEntries: [] } })
 
@@ -66,10 +66,10 @@ describe('async actions', () => {
     axios.get('https://itunes.apple.com/hk/rss/topgrossingapplications/limit=1/json')
 
     const expectedActions = [
-      { type: LOOKUP_APP_STORE_APP_DETAIL_REQUEST },
+      { appId: 310633997, type: LOOKUP_APP_STORE_APP_DETAIL_REQUEST },
       { type: LOOKUP_APP_STORE_APP_DETAIL_SUCCESS, appDetail: appStoreAppDetailMock.expectedResult }
     ]
-    const store = mockStore({ appStore: { topGrossingAppsEntries: [] } })
+    const store = mockStore({ page: 1, appStore: { topGrossingAppsEntries: [] } })
 
     return store.dispatch(lookupAppStoreAppDetail(310633997)).then(() => {
       // return of async actions
