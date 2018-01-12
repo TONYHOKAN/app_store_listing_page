@@ -9,6 +9,7 @@
     "express": "^4.16.2"
   },
   "scripts": {
+    "setup": "yarn install && cd react_client && yarn install",
     "dev": "cd react_client && yarn start",
     "test": "cd react_client && yarn test",
     "build": "cd react_client && yarn build",
