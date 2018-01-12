@@ -5,6 +5,7 @@ import LazyLoad, { forceCheck } from 'react-lazyload'
 
 import SpinLoading from './SpinLoading'
 import FreeAppContainer from '../containers/FreeAppContainer'
+import Fade from './Fade'
 
 class FreeAppsListing extends Component {
   componentDidUpdate () {
@@ -21,7 +22,9 @@ class FreeAppsListing extends Component {
               {
                 // offset mean component will be loaded when it's top edge is 1px from viewport
                 <LazyLoad height={130} resize={true} offset={1} placeholder={<SpinLoading/>}>
-                  <FreeAppContainer name={app.name} imageUrl={app.image} category={app.category} isCircleImage={(index + 1) % 2 === 0} rank={index + 1} appId={app.id}/>
+                  <Fade in={true}>
+                    <FreeAppContainer name={app.name} imageUrl={app.image} category={app.category} isCircleImage={(index + 1) % 2 === 0} rank={index + 1} appId={app.id}/>
+                  </Fade>
                 </LazyLoad>
               }
             </ListGroupItem>
